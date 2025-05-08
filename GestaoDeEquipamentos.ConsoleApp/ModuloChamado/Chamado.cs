@@ -8,6 +8,5 @@ public class Chamado
     public string titulo;
     public string descricao;
     public DateTime dataAbertura;
-
     public Equipamento equipamento;
 }
