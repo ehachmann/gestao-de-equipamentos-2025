@@ -1,6 +1,5 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
-
-namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricantes
+﻿
+namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante
 {
     public class Fabricante
     {

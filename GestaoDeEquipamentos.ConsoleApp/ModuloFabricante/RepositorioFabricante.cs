@@ -1,16 +1,16 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
-namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricantes
+namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante
 {
-    public class RepositorioFabricantes
+    public class RepositorioFabricante
     {
         public Fabricante[] fabricantes = new Fabricante[100];
         public int contadorFabricantes = 0;
 
-        public void CadastrarFabricante(Fabricante fabricante)
+        public void CadastrarFabricante(Fabricante novoFabricante)
         {
-            fabricantes[contadorFabricantes] = fabricante;
+            fabricantes[contadorFabricantes] = novoFabricante;
 
             contadorFabricantes++;
         }

@@ -1,9 +1,8 @@
-﻿
-using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
+﻿using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
-public class TelaFabricante
+public class TelaChamado
 {
     public RepositorioEquipamento repositorioEquipamento;
     public RepositorioChamado repositorioChamado;

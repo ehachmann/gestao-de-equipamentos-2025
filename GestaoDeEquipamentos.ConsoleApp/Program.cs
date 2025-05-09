@@ -1,6 +1,6 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
-using GestaoDeEquipamentos.ConsoleApp.ModuloFabricantes;
+using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
 namespace GestaoDeEquipamentos.ConsoleApp;
 
@@ -8,14 +8,18 @@ class Program
 {
     static void Main(string[] args)
     {
+        RepositorioFabricante repositorioFabricante = new RepositorioFabricante();
         RepositorioEquipamento repositorioEquipamento = new RepositorioEquipamento();
         RepositorioChamado repositorioChamado = new RepositorioChamado();
-        RepositorioFabricantes repositorioFabricantes = new RepositorioFabricantes();
+
+        TelaFabricante telaFabricante = new TelaFabricante();
+        telaFabricante.repositorioFabricante = repositorioFabricante;
 
         TelaEquipamento telaEquipamento = new TelaEquipamento();
         telaEquipamento.repositorioEquipamento = repositorioEquipamento;
+        telaEquipamento.repositorioFabricante = repositorioFabricante;
 
-        TelaFabricante telaChamado = new TelaFabricante();
+        TelaChamado telaChamado = new TelaChamado();
         telaChamado.repositorioChamado = repositorioChamado;
         telaChamado.repositorioEquipamento = repositorioEquipamento;
 

@@ -1,8 +1,11 @@
-﻿namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
+﻿using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
+
+namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 public class TelaEquipamento
 {
     public RepositorioEquipamento repositorioEquipamento;
+    internal RepositorioFabricante repositorioFabricante;
 
     public void ExibirCabecalho()
     {
