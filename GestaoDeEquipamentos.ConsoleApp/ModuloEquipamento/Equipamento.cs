@@ -8,4 +8,14 @@ public class Equipamento
     public string numeroSerie;
     public string fabricante;
     public DateTime dataFabricacao;
+
+    public Equipamento(string nome, decimal precoAquisicao, string numeroSerie,
+                       string fabricante, DateTime dataFabricacao)
+    {
+        this.nome = nome;
+        this.precoAquisicao = precoAquisicao;
+        this.numeroSerie = numeroSerie;
+        this.fabricante = fabricante;
+        this.dataFabricacao = dataFabricacao;
+    }
 }

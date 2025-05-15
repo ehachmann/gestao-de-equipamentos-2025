@@ -157,11 +157,7 @@ public class TelaChamado
 
         Equipamento equipamentoSelecionado = repositorioEquipamento.SelecionarEquipamentoPorId(idEquipamento);
 
-        Chamado chamado = new Chamado();
-        chamado.titulo = titulo;
-        chamado.descricao = descricao;
-        chamado.dataAbertura = dataAbertura;
-        chamado.equipamento = equipamentoSelecionado;
+        Chamado chamado = new Chamado(titulo, descricao, dataAbertura, equipamentoSelecionado);
 
         return chamado;
     }

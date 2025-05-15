@@ -157,12 +157,7 @@ public class TelaEquipamento
         Console.WriteLine("Digite a data de fabricação do equipamento: ");
         DateTime dataFabricacao = DateTime.Parse(Console.ReadLine());
 
-        Equipamento equipamento = new Equipamento();
-        equipamento.nome = nome;
-        equipamento.precoAquisicao = precoAquisicao;
-        equipamento.numeroSerie = numeroSerie;
-        equipamento.fabricante = fabricante;
-        equipamento.dataFabricacao = dataFabricacao;
+        Equipamento equipamento = new Equipamento(nome, precoAquisicao, numeroSerie, fabricante, dataFabricacao);
 
         return equipamento;
     }
