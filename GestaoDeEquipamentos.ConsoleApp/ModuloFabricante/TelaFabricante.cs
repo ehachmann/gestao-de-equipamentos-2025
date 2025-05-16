@@ -41,6 +41,24 @@ public class TelaFabricante
 
         Fabricante novoFabricante = ObterDados();
 
+        string erros = novoFabricante.Validar();
+
+        if (erros.Length > 0)
+        {
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(erros);
+            Console.ResetColor();
+
+            Console.WriteLine("\nDigite ENTER para continuar...");
+            Console.ReadLine();
+
+            CadastrarRegistro();
+
+            return;
+        }
+
         repositorioFabricante.CadastrarFabricante(novoFabricante);
 
         Console.WriteLine($"\nFabricante \"{novoFabricante.nome}\" cadastrado com sucesso!");
