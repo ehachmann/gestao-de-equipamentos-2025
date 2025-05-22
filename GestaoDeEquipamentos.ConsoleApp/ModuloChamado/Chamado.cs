@@ -1,22 +1,23 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
+using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
-public class Chamado
+public class Chamado : EntidadeBase
 {
     public int id;
     public string titulo;
     public string descricao;
     public DateTime dataAbertura;
-    public Equipamento equipamento;
+    internal Equipamento equipamento;
 
-    public Chamado(string titulo, string descricao, DateTime dataAbertura, Equipamento equipamento)
+    public override void AtualizarRegistro(EntidadeBase registroAtualizado)
     {
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.dataAbertura = dataAbertura;
-        this.equipamento = equipamento;
+        Chamado chamadoAtualizado = (Chamado)registroAtualizado;
 
+        this.titulo = chamadoAtualizado.titulo;
+        this.descricao = chamadoAtualizado.descricao;
+        this.dataAbertura = chamadoAtualizado.dataAbertura;
     }
-
 }

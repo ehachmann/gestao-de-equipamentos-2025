@@ -1,11 +1,12 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 public class TelaEquipamento
 {
     public RepositorioEquipamento repositorioEquipamento;
-    internal RepositorioFabricante repositorioFabricante;
+    public RepositorioFabricante repositorioFabricante;
 
     public void ExibirCabecalho()
     {
@@ -42,41 +43,9 @@ public class TelaEquipamento
 
         Equipamento equipamento = ObterDados();
 
-        repositorioEquipamento.CadastrarEquipamento(equipamento);
+        repositorioEquipamento.CadastrarRegistro(equipamento);
 
         Console.WriteLine($"\nEquipamento \"{equipamento.nome}\" cadastrado com sucesso!");
-        Console.ReadLine();
-    }
-
-    public void VisualizarRegistros(bool exibirCabecalho)
-    {
-        if (exibirCabecalho == true)
-            ExibirCabecalho();
-
-        Console.WriteLine("Visualização de Equipamentos");
-
-        Console.WriteLine();
-
-        Console.WriteLine(
-            "{0, -10} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -15}",
-            "Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
-        );
-
-        Equipamento[] equipamentos = repositorioEquipamento.SelecionarEquipamentos();
-
-        for (int i = 0; i < equipamentos.Length; i++)
-        {
-            Equipamento e = equipamentos[i];
-
-            if (e == null)
-                continue;
-
-            Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -15}",
-                e.id, e.nome, e.precoAquisicao.ToString("C2"), e.numeroSerie, e.fabricante, e.dataFabricacao.ToShortDateString()
-            );
-        }
-
         Console.ReadLine();
     }
 
@@ -97,7 +66,7 @@ public class TelaEquipamento
 
         Equipamento equipamentoAtualizado = ObterDados();
 
-        bool conseguiuEditar = repositorioEquipamento.EditarEquipamento(idSelecionado, equipamentoAtualizado);
+        bool conseguiuEditar = repositorioEquipamento.EditarRegistro(idSelecionado, equipamentoAtualizado);
 
         if (!conseguiuEditar)
         {
@@ -126,7 +95,7 @@ public class TelaEquipamento
 
         Console.WriteLine();
 
-        bool conseguiuExcluir = repositorioEquipamento.ExcluirEquipamento(idSelecionado);
+        bool conseguiuExcluir = repositorioEquipamento.ExcluirRegistro(idSelecionado);
 
         if (!conseguiuExcluir)
         {
@@ -140,24 +109,96 @@ public class TelaEquipamento
         Console.ReadLine();
     }
 
+    public void VisualizarRegistros(bool exibirCabecalho)
+    {
+        if (exibirCabecalho == true)
+            ExibirCabecalho();
+
+        Console.WriteLine("Visualização de Equipamentos");
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -10} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -15}",
+            "Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
+        );
+
+        EntidadeBase[] equipamentos = repositorioEquipamento.SelecionarRegistros();
+
+        for (int i = 0; i < equipamentos.Length; i++)
+        {
+            Equipamento e = (Equipamento)equipamentos[i];
+
+            if (e == null)
+                continue;
+
+            Console.WriteLine(
+                "{0, -10} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -15}",
+                e.id, e.nome, e.precoAquisicao.ToString("C2"), e.numeroSerie, e.fabricante.nome, e.dataFabricacao.ToShortDateString()
+            );
+        }
+
+        Console.ReadLine();
+    }
+
+    public void VisualizarFabricantes()
+    {
+        Console.WriteLine();
+
+        Console.WriteLine("Visualização de Fabricantes");
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -10} | {1, -20} | {2, -30} | {3, -15}",
+            "Id", "Nome", "Email", "Telefone"
+        );
+
+        EntidadeBase[] fabricantes = repositorioFabricante.SelecionarRegistros();
+
+        for (int i = 0; i < fabricantes.Length; i++)
+        {
+            Fabricante f = (Fabricante)fabricantes[i];
+
+            if (f == null)
+                continue;
+
+            Console.WriteLine(
+               "{0, -10} | {1, -20} | {2, -30} | {3, -15}",
+                f.id, f.nome, f.email, f.telefone
+            );
+        }
+
+        Console.ReadLine();
+    }
+
     public Equipamento ObterDados()
     {
-        Console.WriteLine("Digite o nome do equipamento: ");
+        Console.Write("Digite o nome do equipamento: ");
         string nome = Console.ReadLine();
 
-        Console.WriteLine("Digite o preço de aquisição do equipamento: ");
+        Console.Write("Digite o preço de aquisição do equipamento: ");
         decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
 
-        Console.WriteLine("Digite o número de série do equipamento: ");
+        Console.Write("Digite o número de série do equipamento: ");
         string numeroSerie = Console.ReadLine();
 
-        Console.WriteLine("Digite o nome do fabricante do equipamento: ");
-        string fabricante = Console.ReadLine();
-
-        Console.WriteLine("Digite a data de fabricação do equipamento: ");
+        Console.Write("Digite a data de fabricação do equipamento: ");
         DateTime dataFabricacao = DateTime.Parse(Console.ReadLine());
 
-        Equipamento equipamento = new Equipamento(nome, precoAquisicao, numeroSerie, fabricante, dataFabricacao);
+        VisualizarFabricantes();
+
+        Console.Write("Digite o id do fabricante do equipamento: ");
+        int idFabricante = Convert.ToInt32(Console.ReadLine());
+
+        Fabricante fabricanteSelecionado = (Fabricante)repositorioFabricante.SelecionarRegistroPorId(idFabricante);
+
+        Equipamento equipamento = new Equipamento();
+        equipamento.nome = nome;
+        equipamento.precoAquisicao = precoAquisicao;
+        equipamento.numeroSerie = numeroSerie;
+        equipamento.fabricante = fabricanteSelecionado;
+        equipamento.dataFabricacao = dataFabricacao;
 
         return equipamento;
     }

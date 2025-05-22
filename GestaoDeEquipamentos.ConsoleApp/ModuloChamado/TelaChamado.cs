@@ -1,4 +1,5 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
@@ -126,7 +127,7 @@ public class TelaChamado
 
         for (int i = 0; i < chamados.Length; i++)
         {
-            Chamado c = chamados[i];
+            Chamado c = (Chamado)chamados[i];
 
             if (c == null)
                 continue;
@@ -155,9 +156,13 @@ public class TelaChamado
         Console.Write("Digite o ID do equipamento que deseja selecionar: ");
         int idEquipamento = Convert.ToInt32(Console.ReadLine());
 
-        Equipamento equipamentoSelecionado = repositorioEquipamento.SelecionarEquipamentoPorId(idEquipamento);
+        Equipamento equipamentoSelecionado = (Equipamento)repositorioEquipamento.SelecionarRegistroPorId(idEquipamento);
 
-        Chamado chamado = new Chamado(titulo, descricao, dataAbertura, equipamentoSelecionado);
+        Chamado chamado = new Chamado();
+        chamado.titulo = titulo;
+        chamado.descricao = descricao;
+        chamado.dataAbertura = dataAbertura;
+        chamado.equipamento = equipamentoSelecionado;
 
         return chamado;
     }
@@ -175,18 +180,18 @@ public class TelaChamado
             "Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
         );
 
-        Equipamento[] equipamentos = repositorioEquipamento.SelecionarEquipamentos();
+        EntidadeBase[] equipamentos = repositorioEquipamento.SelecionarRegistros();
 
         for (int i = 0; i < equipamentos.Length; i++)
         {
-            Equipamento e = equipamentos[i];
+            Equipamento e = (Equipamento)equipamentos[i];
 
             if (e == null)
                 continue;
 
             Console.WriteLine(
                 "{0, -10} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -15}",
-                e.id, e.nome, e.precoAquisicao.ToString("C2"), e.numeroSerie, e.fabricante, e.dataFabricacao.ToShortDateString()
+                e.id, e.nome, e.precoAquisicao.ToString("C2"), e.numeroSerie, e.fabricante.nome, e.dataFabricacao.ToShortDateString()
             );
         }
 
