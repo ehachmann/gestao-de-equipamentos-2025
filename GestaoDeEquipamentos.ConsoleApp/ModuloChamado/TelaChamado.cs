@@ -75,7 +75,7 @@ public class TelaChamado : TelaBase
         return chamado;
     }
 
-    public void VisualizarEquipamentos()
+    private void VisualizarEquipamentos()
     {
         Console.WriteLine();
 
