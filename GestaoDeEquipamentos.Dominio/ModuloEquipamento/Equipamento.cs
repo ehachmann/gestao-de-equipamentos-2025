@@ -5,6 +5,8 @@ namespace GestaoDeEquipamentos.Dominio.ModuloEquipamento;
 
 public class Equipamento : EntidadeBase<Equipamento>
 {
+    private Fabricante fabricanteSelecionado;
+
     public string Nome { get; set; }
     public decimal PrecoAquisicao { get; set; }
     public string NumeroSerie { get; set; }
@@ -26,6 +28,14 @@ public class Equipamento : EntidadeBase<Equipamento>
         NumeroSerie = numeroSerie;
         Fabricante = fabricante;
         DataFabricacao = dataFabricacao;
+    }
+
+    public Equipamento(string nome, decimal precoAquisicao, DateTime dataFabricacao, Fabricante fabricanteSelecionado)
+    {
+        Nome = nome;
+        PrecoAquisicao = precoAquisicao;
+        DataFabricacao = dataFabricacao;
+        this.fabricanteSelecionado = fabricanteSelecionado;
     }
 
     public override string Validar()
